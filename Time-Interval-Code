@@ -1,21 +1,20 @@
 import pandas as pd
 import numpy as np
 
-datas = 'JS-LIFE Participant Data (1-24-17).xlsx'
+datas = 'JS-LIFE Participant Data (1-24-17).xlsx'                 #convert raw excel sheet into pandas data frame
+df = pd.read_excel(datas)
 
-df=
-
-List_User_Dict = []
-User_list = []
+List_User_Dict = []           #creating empty list to store the dictionaries, with UserID as name, InstrumentID as key and a list of time stamps as values.
+User_list = []                #creating an empty list to add all unique UserIDs to.
 
 for i in range(df.shape[0]):
   row = df.iloc[i]
   primary_key=row["Foreign Key"]
   
   if primary_key not in User_List:
-    User_List += primary_key
+    User_List += primary_key          #takes all unique user IDs and adds them to the second empty list
     
-Instrument_ID_List = []
+Instrument_ID_List = []               #creates a list of all unique instrument IDs
 for i in range(df.shape[0]):
   row = df.iloc[i]
   primary_key = row["Instrument ID"]
@@ -23,9 +22,17 @@ for i in range(df.shape[0]):
   if primary_key not in User_List:
     Instrument_ID_List += primary_key
     
-for user in User_List:
+for user in User_List:                        #creates an empty dictionary named after every unique UserID.
   user = {}
-  for ID in Instrument_ID_List:
-    user[ID] = [???????time stamps???????]
-  
-    List_user_Dict += user[ID]
+  for ID in Instrument_ID_List:             #adds a key named after the unique InstrumentIDs to the dictionary and sets it equal to list of relevant time stamps 
+    time_stamps = [????????????]            #not sure how to generate a list of specifc time stamps
+    #How to convert date times to numbers?
+    user[ID] = time_stamps  
+    user[ID] = max(time_stamps) - min(time_stamps)      #finds the time spent on that interval by subtracing largest and smallest value 
+    List_User_Dict += user[ID]                #Adds the User Dictionary to a list of User Dictionaries 
+
+
+
+for ID in Instrument_ID_List:
+  avg = []
+  avg += 
