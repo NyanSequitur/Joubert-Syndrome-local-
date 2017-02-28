@@ -1,0 +1,29 @@
+import pandas as pd
+import numpy as np
+
+df=
+
+List_User_Dict = []
+User_list = []
+
+for i in range(df.shape[0]):
+  row = df.iloc[i]
+  primary_key=row["Foreign Key"]
+  
+  if primary_key not in User_List:
+    User_List += primary_key
+    
+Instrument_ID_List = []
+for i in range(df.shape[0]):
+  row = df.iloc[i]
+  primary_key = row["Instrument ID"]
+  
+  if primary_key not in User_List:
+    Instrument_ID_List += primary_key
+    
+for user in User_List:
+  user = {}
+  for ID in Instrument_ID_List:
+    user[ID] = [???????time stamps???????]
+  
+    List_user_Dict += user[ID]
