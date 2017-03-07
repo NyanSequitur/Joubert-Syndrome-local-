@@ -1,9 +1,8 @@
 import pandas as pd
-import arrow
+from datetime import datetime
 
 
-# source data
-df = pd.read_sql('put the file name here')
+df = pd.read_excel('JS-LIFE Instrument Interval.xlsx')
 
 # output dicitonary
 d = {}
@@ -11,56 +10,33 @@ d = {}
 # also we will keep track of all unique instruments
 unique_instruments = set()
 
-for i in range(len(df)):
-    row = df.iloc[i]
+row = df.iloc[0]
 
-    user_id = row['NAME OF USER ID COLUMN']
-    instrument_id = row['NAME OF INSTRMENT ID COLUMN']
-
-    # update our list of unique_instruments
-    unique_instruments.update(instrument_id)
-
+user_id =       row['Foreign Key']
+instrument_id = row['Instrument ID'
+                    
+unique_instruments.add(instrument_id)
     # user has not been added to dict
-    if user_id not in d:
-        d[user_id] = {}
+if user_id not in d:
+    d[user_id] = {}
 
     # this is a dictionary
-    user = d[user_id]
+user = d[user_id]
 
-    # instrument has not been added
-    if instrument_id not in user:
-        user[instrument_id] = []
+if instrument_id not in user:
+    user[instrument_id] = []
 
     # list of time stamps
-    time_stamps = user[instrument_id]
-
-    # cast this to a datetime obj
-    # it might be none so lets do it in a try/except
-    try:
-        date_time = arrow.get(row['NAME OF COLUMN WITH TIME STAMP SHOULD GO HERE']).datetime
-    except Excpetion as e:
-        print(e) # print exception
-        continue # continue, useless without a valid timestamp
-
-    # add time stamp to list of time stamps
-    time_stamps.append(row['NAME OF COLUMN WITH TIME STAMP SHOULD GO HERE'])
-    
-"""
-now we have a dictionary of the form
-
-{'user_id': {'instrument_id': [list, of, time, stamps]}}
-
-so now we want to make a table where:
-rows are user_ids
-columns are instruments
-values are the number of seconds it took the user to complete the instrument
-"""
-
+time_stamps = user[instrument_id]
+                    
+date_string = row['Date Answered']
+datetime.strptime(date_string, '%Y-%m-%d %H:%M:%S')
+                    
 table = {instrument: [] for instrument in unique_instruments}
 
 # now for a column to hold the row index
 table['user_id'] = []
-
+           
 for user in d.keys():
 
     # dict where instruments are keys
@@ -86,6 +62,9 @@ for user in d.keys():
 output_table = pd.DataFrame(table)
 
 # save to excel notebook
-# blah blah saving to excel goes here
-                                                                                                                                                                                                  90,3          Bot
-
+                    
+pivot = pd.DataFrame.from_dict(d, orient='index')
+                    
+writer = pd.ExcelWriter('Instrument_Interval.xlsx')
+pivot.to_excel(writer, 'Sheet1')
+writer.save()
