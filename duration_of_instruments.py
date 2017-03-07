@@ -13,7 +13,7 @@ unique_instruments = set()
 row = df.iloc[0]
 
 user_id =       row['Foreign Key']
-instrument_id = row['Instrument ID'
+instrument_id = row['Instrument ID']
                     
 unique_instruments.add(instrument_id)
     # user has not been added to dict
@@ -56,15 +56,13 @@ for user in d.keys():
 
         time_stamps = instrument_dict[instrument]
         duration = (max(time_stamps) - min(time_stamps)).seconds
+        table[instrument].append(duration)
 
 
 # create pandas dataframe
 output_table = pd.DataFrame(table)
 
-# save to excel notebook
-                    
-pivot = pd.DataFrame.from_dict(d, orient='index')
-                    
+# save to excel notebook                    
 writer = pd.ExcelWriter('Instrument_Interval.xlsx')
-pivot.to_excel(writer, 'Sheet1')
+output_table.to_excel(writer, 'Sheet1')
 writer.save()
