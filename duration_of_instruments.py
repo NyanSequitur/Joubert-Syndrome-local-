@@ -3,7 +3,7 @@ import arrow
 
 
 # source data
-df = pd.read_sql('put the file name here')
+df = pd.read_sql('JS-LIFE Participant Data (1-24-17).xlsx')
 
 # output dicitonary
 d = {}
